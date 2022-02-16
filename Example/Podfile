@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'MMUIKit_Example' do
+  pod 'MMUIKit', :path => '../'
+
+  target 'MMUIKit_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
