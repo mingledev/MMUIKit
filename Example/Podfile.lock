@@ -1,0 +1,16 @@
+PODS:
+  - MMUIKit (0.1.0)
+
+DEPENDENCIES:
+  - MMUIKit (from `../`)
+
+EXTERNAL SOURCES:
+  MMUIKit:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  MMUIKit: d6a7e7faafdf53afeba3e4d67bb14384aff021f6
+
+PODFILE CHECKSUM: 590a47f6693c1f31b52db9b8fe0baf02d6558498
+
+COCOAPODS: 1.10.1
