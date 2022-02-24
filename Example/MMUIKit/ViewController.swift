@@ -33,7 +33,11 @@ class ViewController: UIViewController {
     }
     
     @objc func action() {
-        debugPrint("tap")
+        let action = MMActionSheet.show(title: "标题", content: "内容", cancelButtonTitle: "取消", otherButtonTitle: "确定", "销毁")
+        action.buttonOnClick = { (alert, index) in
+            debugPrint("\(index)")
+            return true
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -54,6 +58,7 @@ class ViewController: UIViewController {
             view.hide()
             return false
         }
+        
     }
 
     override func didReceiveMemoryWarning() {

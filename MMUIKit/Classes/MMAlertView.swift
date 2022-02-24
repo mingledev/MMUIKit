@@ -22,9 +22,9 @@ public class MMAlertView: MMBaseShowView {
         }
     }
     
-    @objc dynamic public var contentFont: UIFont = .systemFont(ofSize: 13) {
+    @objc dynamic public var contentFont: UIFont = .systemFont(ofSize: 14) {
         didSet {
-            textView.font = contentFont
+            contentLabel.font = contentFont
         }
     }
     
@@ -44,7 +44,7 @@ public class MMAlertView: MMBaseShowView {
         return lbl
     }()
     
-    @objc dynamic public var cancelButtonTitleColor: UIColor = .blue {
+    @objc dynamic public var cancelButtonTitleColor: UIColor = .lightGray {
         didSet {
             cancelButton.setTitleColor(cancelButtonTitleColor, for: .normal)
         }
@@ -74,7 +74,7 @@ public class MMAlertView: MMBaseShowView {
     
     @objc dynamic public lazy var contentColor: UIColor = .black {
         didSet {
-            textView.textColor = contentColor
+            contentLabel.textColor = contentColor
         }
     }
     
@@ -85,16 +85,16 @@ public class MMAlertView: MMBaseShowView {
     private lazy var cancelButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.titleLabel?.font = buttonFont
+        btn.setTitleColor(cancelButtonTitleColor, for: .normal)
         btn.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
         return btn
     }()
     
     private var otherButtonList = [UIButton]()
     
-    private lazy var textView: UITextView = {
-        let view = UITextView()
+    private lazy var contentLabel: UILabel = {
+        let view = UILabel()
         view.font = contentFont
-        view.isEditable = false
         view.textAlignment = .center
         view.textColor = contentColor
         return view
@@ -102,18 +102,24 @@ public class MMAlertView: MMBaseShowView {
     
     private var customerView: UIView?
     
+    private var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.bounces = false
+        return scrollView
+    }()
+    
     private func setupSubViews() {
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(textView)
-        contentView.addSubview(cancelButton)
-        for item in otherButtonList {
-            contentView.addSubview(item)
-        }
+        contentView.addSubview(scrollView)
+        scrollView.addSubview(titleLabel)
+        scrollView.addSubview(contentLabel)
+        scrollView.addSubview(cancelButton)
+
         let btnCount = otherButtonList.count + (cancelButton.titleLabel?.text == nil ? 0 : 1)
         for _ in 0..<(btnCount - lineViewList.count) {
             let line = UIView()
             line.backgroundColor = lineViewColor
-            contentView.addSubview(line)
+            scrollView.addSubview(line)
             lineViewList.append(line)
         }
         contentView.mCornerRadius = 8
@@ -125,8 +131,9 @@ public class MMAlertView: MMBaseShowView {
         super.layoutContentView()
         
         contentView.mWidth = min(mWidth, mHeight) - 100
+        scrollView.mWidth = contentView.mWidth
         
-        var currentMaxY: CGFloat = 10
+        var currentMaxY: CGFloat = 15
         
         if let _ = titleLabel.text {
             titleLabel.isHidden = false
@@ -138,13 +145,13 @@ public class MMAlertView: MMBaseShowView {
             titleLabel.isHidden = true
         }
         
-        if textView.text.count > 0 {
-            textView.isHidden = false
-            textView.mSize = textView.sizeThatFits(CGSize(width: contentView.mWidth - 30, height: mHeight / 2))
-            textView.mHeight = ceil(min(textView.mHeight, mHeight / 2))
-            textView.mTop = currentMaxY + 10
-            textView.mCenterX = contentView.mWidth / 2
-            currentMaxY = textView.mBottom
+        if contentLabel.text?.count ?? 0 > 0 {
+            contentLabel.isHidden = false
+            contentLabel.mSize = contentLabel.sizeThatFits(CGSize(width: contentView.mWidth - 30, height: mHeight / 2))
+            contentLabel.mHeight = ceil(min(contentLabel.mHeight, mHeight / 2))
+            contentLabel.mTop = currentMaxY + 10
+            contentLabel.mCenterX = contentView.mWidth / 2
+            currentMaxY = contentLabel.mBottom
         }
         
         if customerView != nil {
@@ -167,7 +174,7 @@ public class MMAlertView: MMBaseShowView {
         if btnList.count == 2 {
             for (i, item) in btnList.enumerated() {
                 item.mLeft = CGFloat(i) * (contentView.mWidth / 2)
-                item.mTop = currentMaxY + 10
+                item.mTop = currentMaxY + 15
                 item.mWidth = contentView.mWidth / 2
                 item.mHeight = 40
                 if i == 0 {
@@ -184,7 +191,7 @@ public class MMAlertView: MMBaseShowView {
             }
             currentMaxY = btnList.last!.mBottom
         } else {
-            currentMaxY += 10
+            currentMaxY += 15
             for (i, item) in btnList.enumerated() {
                 item.mLeft = 0
                 item.mTop = currentMaxY
@@ -197,7 +204,9 @@ public class MMAlertView: MMBaseShowView {
                 lineViewList[i].mHeight = WidthDivideScreenScale(1)
             }
         }
-        contentView.mHeight = currentMaxY
+        scrollView.contentSize = CGSize(width: contentView.mWidth, height: currentMaxY)
+        scrollView.mHeight = min(mHeight - 100, scrollView.contentSize.height)
+        contentView.mHeight = scrollView.mHeight
         contentView.mCenterY = mHeight / 2
         contentView.mCenterX = mWidth / 2
     }
@@ -205,7 +214,7 @@ public class MMAlertView: MMBaseShowView {
     public class func show(title: String?, content: String?, cancelButtonTitle: String?, otherButtonTitle: String?...) -> MMAlertView {
         let alert = MMAlertView()
         alert.titleLabel.text = title
-        alert.textView.text = content
+        alert.contentLabel.text = content
         alert.cancelButton.setTitle(cancelButtonTitle, for: .normal)
         for (_, otherTitle) in otherButtonTitle.compactMap({ $0 }).enumerated() {
             alert.addButton(otherTitle)
@@ -222,12 +231,12 @@ public class MMAlertView: MMBaseShowView {
         btn.setTitle(title, for: .normal)
         btn.setTitleColor(otherButtonTitleColor, for: .normal)
         btn.addTarget(self, action: #selector(otherButtonAction(_:)), for: .touchUpInside)
-        contentView.addSubview(btn)
+        scrollView.addSubview(btn)
         otherButtonList.append(btn)
         
         let line = UIView()
         line.backgroundColor = lineViewColor
-        contentView.addSubview(line)
+        scrollView.addSubview(line)
         lineViewList.append(line)
         
         if isVisible {
@@ -239,7 +248,7 @@ public class MMAlertView: MMBaseShowView {
         if textField.mHeight == 0 {
             textField.mHeight = 30
         }
-        contentView.addSubview(textField)
+        scrollView.addSubview(textField)
         textFieldList.append(textField)
         if isVisible {
             layoutContentView()
@@ -250,7 +259,7 @@ public class MMAlertView: MMBaseShowView {
         if customerView != nil {
             customerView?.removeFromSuperview()
         }
-        contentView.addSubview(view)
+        scrollView.addSubview(view)
         customerView = view
         if self.isVisible {
             layoutContentView()
