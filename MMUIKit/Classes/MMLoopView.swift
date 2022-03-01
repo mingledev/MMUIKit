@@ -158,7 +158,8 @@ public class MMLoopView: UIView, UICollectionViewDataSource, UICollectionViewDel
     
     public func reloadData() {
         collectionView.reloadData()
-        collectionView.scrollRectToVisible(CGRect(x: CGFloat(realCount)*collectionView.mWidth, y: 0, width: collectionView.mWidth, height: collectionView.mHeight), animated: false)
+//        collectionView.scrollRectToVisible(CGRect(x: CGFloat(realCount)*collectionView.mWidth, y: 0, width: collectionView.mWidth, height: collectionView.mHeight), animated: false)
+
     }
     
     public func register(_ cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
@@ -190,7 +191,7 @@ public class MMLoopView: UIView, UICollectionViewDataSource, UICollectionViewDel
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.x == 0 || scrollView.contentOffset.x == scrollView.contentSize.width - scrollView.mWidth {
+        if (scrollView.contentOffset.x == 0 || scrollView.contentOffset.x == scrollView.contentSize.width - scrollView.mWidth) && loopEnable {
             adjustCollectionContent()
         }
     }
