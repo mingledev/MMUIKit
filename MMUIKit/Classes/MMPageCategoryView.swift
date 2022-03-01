@@ -157,7 +157,7 @@ open class MMPageCategoryView: UIView, MMPageCategoryDelegate, UIScrollViewDeleg
         
         if index >= 0 && titleLblList.count > index {
             indicatorView.mWidth = titleLblList[index].mWidth - spacing
-            indicatorView.mBottom = self.scrollView.mHeight - indicatorView.mHeight
+            indicatorView.mBottom = self.scrollView.mHeight
             indicatorView.mCenterX = titleLblList[index].mCenterX
         }
     }
@@ -175,7 +175,7 @@ open class MMPageCategoryView: UIView, MMPageCategoryDelegate, UIScrollViewDeleg
                     self.titleLblList[newIndex].transform = .init(scaleX: self.selectedScaleRatio, y: self.selectedScaleRatio)
                 }
                 self.indicatorView.mWidth = self.titleLblList[newIndex].mWidth - self.spacing
-                self.indicatorView.mBottom = self.scrollView.mHeight - self.indicatorView.mHeight
+                self.indicatorView.mBottom = self.scrollView.mHeight
                 self.indicatorView.mCenterX = self.titleLblList[newIndex].mCenterX
             }
             scrollView.scrollRectToVisible(titleLblList[newIndex].frame, animated: true)
