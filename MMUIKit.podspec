@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MMUIKit'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = '常用UI组件.'
 
 # This description is used to generate tags and improve search results.
@@ -32,9 +32,10 @@ TODO: 常用UI组件持续整理。
 
   s.source_files = 'MMUIKit/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'MMUIKit' => ['MMUIKit/Assets/*.png']
-  # }
+#   s.resource_bundles = {
+#     'MMUIKit' => ['MMUIKit/Assets/*.bundle']
+#   }
+  s.resource = 'MMUIKit/Assets/*.bundle'
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'

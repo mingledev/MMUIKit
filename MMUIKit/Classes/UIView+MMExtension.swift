@@ -53,6 +53,15 @@ public extension UIView {
         }
     }
     
+    var mCenter: CGPoint {
+        get {
+            return center
+        }
+        set {
+            center = newValue
+        }
+    }
+    
     var mCenterX: CGFloat {
         get {
             return center.x

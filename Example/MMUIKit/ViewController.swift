@@ -61,6 +61,13 @@ class ViewController: MMPageViewController {
         cate.titles = ["发奇偶安慰奖佛尔交完费", "发外交佛教", "金佛为埃及", "更接近工具人", "福娃"]
         subViewControllers = [vc1, vc2, vc3, vc4, vc5]
         categoryView = cate
+        
+        MMProgressHUD.appearance().isFullScreen = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        MMProgressHUD.showHUD()
     }
     
     override func viewDidLayoutSubviews() {
