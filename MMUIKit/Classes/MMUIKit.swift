@@ -40,3 +40,39 @@ public var IsFullScreen: Bool {
 public func WidthDivideScreenScale(_ width: CGFloat) -> CGFloat {
     return width / UIScreen.main.scale
 }
+
+public var KeyWindow: UIWindow? {
+    var window: UIWindow?
+    if #available(iOS 13.0, *) {
+        window = UIApplication.shared.connectedScenes.filter( {$0 is UIWindowScene} ).map( {$0 as! UIWindowScene} ).flatMap { $0.windows }.filter({$0.isKeyWindow}).first
+    } else {
+        window = UIApplication.shared.keyWindow
+    }
+    return window
+}
+
+public var CurrentViewController: UIViewController? {
+    var vc = KeyWindow?.rootViewController
+    while vc != nil {
+        if vc is UITabBarController {
+            vc = (vc as! UITabBarController).selectedViewController
+        }
+        if vc is UINavigationController {
+            vc = (vc as! UINavigationController).visibleViewController
+        }
+        if vc?.presentedViewController != nil {
+            vc = vc?.presentedViewController
+        } else {
+            break
+        }
+    }
+    return vc
+}
+
+public var TopViewController: UIViewController? {
+    var vc = KeyWindow?.rootViewController
+    while vc?.presentedViewController != nil {
+        vc = vc?.presentedViewController
+    }
+    return vc
+}
