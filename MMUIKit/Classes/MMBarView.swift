@@ -8,7 +8,7 @@
 import UIKit
 
 /// 可以浮动在父视图顶部或底部，自动处理安全距离
-public class MMBarView: UIView {
+open class MMBarView: UIView {
 
     public enum Location {
         case top
@@ -23,7 +23,7 @@ public class MMBarView: UIView {
         return view
     }()
     
-    public var contentView: UIView {
+    open var contentView: UIView {
         return _contentView
     }
     
@@ -33,20 +33,20 @@ public class MMBarView: UIView {
         super.init(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: contentHeight + (location == .bottom ? FullScreenBottomSafeHeight : StatusBarHeight)))
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         location = .top
         contentHeight = 44
         super.init(coder: coder)
     }
     
-    public override func willMove(toSuperview newSuperview: UIView?) {
+    open override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         if contentView.superview == nil {
             addSubview(contentView)
         }
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         reLayout()
     }

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MMUIKit'
-  s.version          = '0.1.1'
+  s.version          = '0.1.2'
   s.summary          = '常用UI组件.'
 
 # This description is used to generate tags and improve search results.
@@ -29,6 +29,7 @@ TODO: 常用UI组件持续整理。
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
+  s.swift_versions = '4.0'
 
   s.source_files = 'MMUIKit/Classes/**/*'
   
