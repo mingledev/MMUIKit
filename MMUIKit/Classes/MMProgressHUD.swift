@@ -97,6 +97,7 @@ public class MMProgressHUD: UIView {
         view.font = textFont
         view.numberOfLines = 2
         view.textColor = textColor
+        view.textAlignment = .center
         return view
     } ()
     
