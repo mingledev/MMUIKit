@@ -365,5 +365,9 @@ public class MMProgressHUD: UIView {
             self.alpha = 1
         }
     }
+    
+    public class func hide() {
+        self.default.hide()
+    }
 
 }

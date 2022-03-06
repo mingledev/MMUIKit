@@ -17,14 +17,6 @@ class ViewController: MMPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        let btn = MMButton(frame: CGRect(x: 20, y: 220, width: 200, height: 200))
-//        btn.backgroundColor = UIColor.randomColor
-//        btn.imgLocation = .right
-//        btn.spacing = 8
-//        btn.setImage(UIImage(named: "search"), for: .normal)
-//        btn.setTitle("123", for: .normal)
-//        view.addSubview(btn)
-//        btn.addGesture(type: UITapGestureRecognizer.self, target: self, action: #selector(action))
 ////
 ////        var bar = MMBarView(location: .top)
 ////        bar.backgroundColor = .randomColor
@@ -63,11 +55,20 @@ class ViewController: MMPageViewController {
         categoryView = cate
         
         MMProgressHUD.appearance().isFullScreen = true
+        
+        let btn = MMButton(frame: CGRect(x: 20, y: 220, width: 200, height: 200))
+        btn.backgroundColor = UIColor.randomColor
+        btn.imgLocation = .right
+        btn.spacing = 8
+        btn.setImage(UIImage(named: "search"), for: .normal)
+        btn.setTitle("123", for: .normal)
+        view.addSubview(btn)
+        btn.addGesture(type: UITapGestureRecognizer.self, target: self, action: #selector(action))
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        MMProgressHUD.showHUD()
+//        MMProgressHUD.showHUD()
     }
     
     override func viewDidLayoutSubviews() {
@@ -82,6 +83,7 @@ class ViewController: MMPageViewController {
 //            return true
 //        }
         let pageTF = UITextField()
+        pageTF.placeholder = "页码"
         pageTF.borderStyle = .roundedRect
         let alert = MMAlertView.show(title: "页码", content: "请输入", cancelButtonTitle: "取消", otherButtonTitle: "确定", "开关自动滚动")
         alert.addTextField(pageTF)
