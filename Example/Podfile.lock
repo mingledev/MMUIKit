@@ -1,5 +1,5 @@
 PODS:
-  - MMUIKit (0.1.3)
+  - MMUIKit (0.1.4)
 
 DEPENDENCIES:
   - MMUIKit (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  MMUIKit: 000318baaa568a8fa9dd51e76566ab200fb505ae
+  MMUIKit: 9288b5243349d30fdf5437bff407a0e4e19b7bd2
 
 PODFILE CHECKSUM: 3f66b998aa8986dd6b8ba28aed59641e01740fa7
 
