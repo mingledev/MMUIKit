@@ -201,10 +201,10 @@ public extension UIView {
     }
     
    func addCorners(_ corners: UIRectCorner, _ radii: CGSize) {
-        let path = UIBezierPath(roundedRect: frame, byRoundingCorners: corners, cornerRadii: radii)
-        let layer = CAShapeLayer()
-        layer.path = path.cgPath
-        layer.mask = layer
+       let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: radii)
+       let layer = CAShapeLayer()
+       layer.path = path.cgPath
+       self.layer.mask = layer
     }
     
     @discardableResult func addGesture<T: UIGestureRecognizer>( type: T.Type, target: Any, action: Selector) -> T {
