@@ -34,36 +34,43 @@ class ViewController: MMPageViewController {
 //        view.addSubview(loopView)
 //        loopView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "UICollectionViewCell")
 //        loopView.index = 2
-        let vc1 = SubVC()
-        vc1.title = "vc1"
-//        vc1.view.backgroundColor = .red
-        let vc2 = SubVC()
-        vc2.title = "vc2"
-//        vc2.view.backgroundColor = .green
-        let vc3 = SubVC()
-        vc3.title = "vc3"
-        let vc4 = SubVC()
-        vc4.title = "vc4"
-        let vc5 = SubVC()
-        vc5.title = "vc5"
-//        vc3.view.backgroundColor = .blue
-        let cate = MMPageCategoryView()
-        cate.mHeight = 44
-//        cate.selectedFont = .systemFont(ofSize: 16, weight: .bold)
-        cate.titles = ["发奇偶安慰奖佛尔交完费", "发外交佛教", "金佛为埃及", "更接近工具人", "福娃"]
-        subViewControllers = [vc1, vc2, vc3, vc4, vc5]
-        categoryView = cate
+//        let vc1 = SubVC()
+//        vc1.title = "vc1"
+////        vc1.view.backgroundColor = .red
+//        let vc2 = SubVC()
+//        vc2.title = "vc2"
+////        vc2.view.backgroundColor = .green
+//        let vc3 = SubVC()
+//        vc3.title = "vc3"
+//        let vc4 = SubVC()
+//        vc4.title = "vc4"
+//        let vc5 = SubVC()
+//        vc5.title = "vc5"
+////        vc3.view.backgroundColor = .blue
+//        let cate = MMPageCategoryView()
+//        cate.mHeight = 44
+////        cate.selectedFont = .systemFont(ofSize: 16, weight: .bold)
+//        cate.titles = ["发奇偶安慰奖佛尔交完费", "发外交佛教", "金佛为埃及", "更接近工具人", "福娃"]
+//        subViewControllers = [vc1, vc2, vc3, vc4, vc5]
+//        categoryView = cate
+//
+//        MMProgressHUD.appearance().isFullScreen = true
+//
+//        let btn = MMButton(frame: CGRect(x: 20, y: 220, width: 200, height: 200))
+//        btn.backgroundColor = UIColor.randomColor
+//        btn.imgLocation = .right
+//        btn.spacing = 8
+//        btn.setImage(UIImage(named: "search"), for: .normal)
+//        btn.setTitle("123", for: .normal)
+//        view.addSubview(btn)
+//        btn.addGesture(type: UITapGestureRecognizer.self, target: self, action: #selector(action))
         
-        MMProgressHUD.appearance().isFullScreen = true
-        
-        let btn = MMButton(frame: CGRect(x: 20, y: 220, width: 200, height: 200))
-        btn.backgroundColor = UIColor.randomColor
-        btn.imgLocation = .right
-        btn.spacing = 8
-        btn.setImage(UIImage(named: "search"), for: .normal)
-        btn.setTitle("123", for: .normal)
-        view.addSubview(btn)
-        btn.addGesture(type: UITapGestureRecognizer.self, target: self, action: #selector(action))
+//        let image = UIImage.byGradientColor([.red, .green, .blue], size: CGSize(width: 300, height: 100), gradientType: .leftBottomToRightTop, cornerRadius: 50)
+        let imageview = UIImageView(image: nil)
+        imageview.frame = CGRect(x: 10, y: 100, width: 300, height: 100)
+        imageview.addGradientLayer(colors: [.red, .green, .blue], locations: [0, 0.3, 1], gradientType: .leftBottomToRightTop)
+        imageview.addCorners([.topLeft, .bottomRight], CGSize(width: 20, height: 20))
+        view.addSubview(imageview)
     }
     
     override func viewDidAppear(_ animated: Bool) {

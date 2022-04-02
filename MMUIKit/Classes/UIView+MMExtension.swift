@@ -200,16 +200,48 @@ public extension UIView {
         }
     }
     
-   func addCorners(_ corners: UIRectCorner, _ radii: CGSize) {
+   @discardableResult func addCorners(_ corners: UIRectCorner, _ radii: CGSize) -> CAShapeLayer {
        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: radii)
        let layer = CAShapeLayer()
        layer.path = path.cgPath
        self.layer.mask = layer
+       return layer
     }
     
     @discardableResult func addGesture<T: UIGestureRecognizer>( type: T.Type, target: Any, action: Selector) -> T {
         let ges = type.init(target: target, action: action)
         addGestureRecognizer(ges)
         return ges
+    }
+    
+    @discardableResult func addGradientLayer(colors: [UIColor], locations: [CGFloat]? = nil, gradientType: UIImage.GradientType) -> CAGradientLayer {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = colors.map({ $0.cgColor })
+        gradientLayer.locations = locations?.map({ NSNumber(value: $0) })
+        var start: CGPoint = .zero
+        var end: CGPoint = .zero
+        switch gradientType {
+        case .topToBottom:
+            start = CGPoint(x: 0.5, y: 0)
+            end = CGPoint(x: 0.5, y: 1)
+            break
+        case .leftToRight:
+            start = CGPoint(x: 0, y: 0.5)
+            end = CGPoint(x: 1, y: 0.5)
+            break
+        case .leftTopToRightBottom:
+            start = CGPoint(x: 0, y: 0)
+            end = CGPoint(x: 1, y: 1)
+            break
+        case .leftBottomToRightTop:
+            start = CGPoint(x: 0, y: 1)
+            end = CGPoint(x: 1, y: 0)
+            break
+        }
+        gradientLayer.startPoint = start
+        gradientLayer.endPoint = end
+        layer.addSublayer(gradientLayer)
+        return gradientLayer
     }
 }
